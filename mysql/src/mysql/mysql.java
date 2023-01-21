@@ -61,6 +61,4 @@ public static void main(String[] args) {
 	
 
 }}
-//quay 1 ti day sa
-
 	
