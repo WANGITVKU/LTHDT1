@@ -103,4 +103,4 @@ public class giaodienhethong extends JFrame {
 		textField_9.setColumns(10);
 	}
 }
-//quang quay
+
