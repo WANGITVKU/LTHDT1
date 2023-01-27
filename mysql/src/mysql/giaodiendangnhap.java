@@ -21,7 +21,7 @@ import java.awt.SystemColor;
 public class giaodiendangnhap  extends JFrame{
 
 	private JPanel form1;
-	public JTextField user;
+	private static JTextField user;
 	private JPasswordField pass;
 
 	/**
@@ -43,7 +43,10 @@ public class giaodiendangnhap  extends JFrame{
 	 * Create the frame.
 	 */
 	
-	public giaodiendangnhap() {
+	public giaodiendangnhap() {		
+		
+	
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 655, 428);
 		form1 = new JPanel();

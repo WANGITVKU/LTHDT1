@@ -174,7 +174,6 @@ public class giaodienhethong extends JFrame {
 		contentPane.add(lblNewLabel_12);
 		
 		JLabel lblNewLabel_13 = new JLabel();
-		lblNewLabel_13.setText(tt.getTen());
 		lblNewLabel_13.setFont(new Font("Times New Roman", Font.ITALIC, 15));
 		lblNewLabel_13.setBounds(784, 21, 147, 46);
 		contentPane.add(lblNewLabel_13);
