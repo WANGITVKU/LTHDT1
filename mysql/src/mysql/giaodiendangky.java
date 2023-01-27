@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.SystemColor;
 
 public class giaodiendangky extends JFrame {
 
@@ -25,6 +26,7 @@ public class giaodiendangky extends JFrame {
     private JTextField username;
     private JPasswordField passwordField;
     private JButton btnNewButton;
+    private JPasswordField passwordField_1;
 	/**
 	 * Launch the application.
 	 */
@@ -47,51 +49,69 @@ public class giaodiendangky extends JFrame {
 	public giaodiendangky() {
 		
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setBounds(450, 190, 1014, 597);
+	        setBounds(450, 190, 711, 470);
 	        setResizable(false);
 	        contentPane = new JPanel();
+	        contentPane.setBackground(SystemColor.inactiveCaption);
 	        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	        setContentPane(contentPane);
 	        contentPane.setLayout(null);
 
-	        JLabel lblNewUserRegister = new JLabel("New User Register");
+	        JLabel lblNewUserRegister = new JLabel("Register");
 	        lblNewUserRegister.setFont(new Font("Times New Roman", Font.PLAIN, 42));
-	        lblNewUserRegister.setBounds(362, 52, 325, 50);
+	        lblNewUserRegister.setBounds(230, 10, 193, 50);
 	        contentPane.add(lblNewUserRegister);
 
 	        username = new JTextField();
-	        username.setFont(new Font("Tahoma", Font.PLAIN, 32));
-	        username.setBounds(306, 161, 228, 50);
+	        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        username.setBounds(230, 110, 351, 29);
 	        contentPane.add(username);
 	        username.setColumns(10);
 
-	        JLabel lblUsername = new JLabel("Username");
+	        JLabel lblUsername = new JLabel("UserName");
 	        lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        lblUsername.setBounds(104, 166, 99, 29);
+	        lblUsername.setBounds(48, 110, 155, 29);
 	        contentPane.add(lblUsername);
 
-	        JLabel lblPassword = new JLabel("Password");
+	        JLabel lblPassword = new JLabel("PassWord");
 	        lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        lblPassword.setBounds(104, 252, 99, 24);
+	        lblPassword.setBounds(48, 198, 155, 24);
 	        contentPane.add(lblPassword);
 
 	        passwordField = new JPasswordField();
 	        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 32));
-	        passwordField.setBounds(306, 249, 228, 50);
+	        passwordField.setBounds(230, 191, 351, 29);
 	        contentPane.add(passwordField);
 
 	        btnNewButton = new JButton("Register");
 	        btnNewButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
+	            	
 	               
 	                String userName = username.getText();
-	               
-	                
 	                String password = passwordField.getText();
+	                String password1 = passwordField_1.getText();
+	                StringBuilder ab=new StringBuilder();
+					
 
-	              
-
+	                if (userName.equals("")) {
+						ab.append("Tài khoảng không được để trắng \n");
+					}
+					if (password.equals("")) {
+						ab.append("không được để mật khẩu trắng \n");
+					}
+					if (password1.equals("")) {
+						ab.append("bạn chưa nhập lại mật khẩu  \n");
+					}
+					if (password.equals(password1)==false) {
+						ab.append("Tài khoảng mật khẩu trùng nhau");
+					}
+					 if (ab.length()>0) {
+							JOptionPane.showMessageDialog(null, ab.toString(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+							return;}
+					else {
 	                try {
+	                	
 	                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thongtin", "root", "huynhquang");
 
 	                    String query = "INSERT INTO `thongtin`.`thongtinkhachhang` (`UserName`, `PassWord`) VALUES ('"+userName+"', '"+password+"');";
@@ -108,10 +128,33 @@ public class giaodiendangky extends JFrame {
 	                } catch (Exception exception) {
 	                    exception.printStackTrace();
 	                }
-	            }
-	        });
+	               
+						
+	                }
+	            }});
 	        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-	        btnNewButton.setBounds(399, 447, 259, 74);
+	        btnNewButton.setBounds(426, 368, 175, 41);
 	        contentPane.add(btnNewButton);
+	        
+	        JLabel lblNewLabel = new JLabel("Re-enter PassWord. ");
+	        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblNewLabel.setBounds(10, 283, 193, 29);
+	        contentPane.add(lblNewLabel);
+	        
+	        passwordField_1 = new JPasswordField();
+	        passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        passwordField_1.setBounds(230, 282, 351, 29);
+	        contentPane.add(passwordField_1);
+	        
+	        JButton btnNewButton_1 = new JButton("Login");
+	        btnNewButton_1.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		new giaodiendangnhap().setVisible(true);
+					setVisible(false);
+	        	}
+	        });
+	        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
+	        btnNewButton_1.setBounds(115, 368, 120, 41);
+	        contentPane.add(btnNewButton_1);
 	}
 }
