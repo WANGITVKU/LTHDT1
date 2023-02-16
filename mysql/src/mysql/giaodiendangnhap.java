@@ -76,25 +76,23 @@ public class giaodiendangnhap  extends JFrame{
 			
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					
-					bientoancuc tt = new bientoancuc();
-					tt.setTen(user.getText());
+					String a = user.getText();
+//					bientoancuc tt = new bientoancuc();
+//					tt.setTen(user.getText());
 					Class.forName("com.mysql.jdbc.Driver");
 					Connection con=DriverManager.getConnection("jdbc:mySQL://localhost:3306/thongtin","root","huynhquang");
 					Statement stmt=con.createStatement();
 					String sql="Select*from thongtinkhachhang where UserName='"+user.getText()+"'and PassWord='"+pass.getText().toString()+"'";
-					ResultSet rs=stmt.executeQuery(sql);
-					new giaodienhethong().setVisible(true);
-					setVisible(false);
-					
-					if(rs.next())
-						JOptionPane.showMessageDialog(null, "Đăng thành công");
+					ResultSet rs=stmt.executeQuery(sql);										
+					if(rs.next()) {
+						new giaodienhethong(a).setVisible(true);
+						setVisible(false);
+						JOptionPane.showMessageDialog(null, "Đăng thành công");}
 					else 
-						JOptionPane.showMessageDialog(null, "tài khoản hoặt mật khẩu không đúng vui lòng nhập lại");
-					con.close();
+						JOptionPane.showMessageDialog(null, "Đăng nhặp thất bại "+"\nTài khoảng hoặc mật khẩu không đúng");
+						con.close();
 				} catch (Exception e) {
 					System.out.println(e);
-					// TODO: handle exception
 				}
 				
 			}
@@ -125,6 +123,15 @@ public class giaodiendangnhap  extends JFrame{
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(285, 292, 102, 29);
 		form1.add(btnNewButton_1);
+		
+		JButton btnNewButton_2 = new JButton("system manager login");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnNewButton_2.setBounds(449, 10, 182, 33);
+		form1.add(btnNewButton_2);
 		
 		}
 	}

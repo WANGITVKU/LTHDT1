@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JButton;
@@ -27,6 +29,8 @@ public class giaodiendangky extends JFrame {
     private JPasswordField passwordField;
     private JButton btnNewButton;
     private JPasswordField passwordField_1;
+    private JTextField fullname;
+    private JTextField email;
 	/**
 	 * Launch the application.
 	 */
@@ -49,7 +53,7 @@ public class giaodiendangky extends JFrame {
 	public giaodiendangky() {
 		
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        setBounds(450, 190, 711, 470);
+	        setBounds(450, 190, 901, 470);
 	        setResizable(false);
 	        contentPane = new JPanel();
 	        contentPane.setBackground(SystemColor.inactiveCaption);
@@ -64,7 +68,7 @@ public class giaodiendangky extends JFrame {
 
 	        username = new JTextField();
 	        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        username.setBounds(230, 110, 351, 29);
+	        username.setBounds(198, 110, 206, 29);
 	        contentPane.add(username);
 	        username.setColumns(10);
 
@@ -80,17 +84,18 @@ public class giaodiendangky extends JFrame {
 
 	        passwordField = new JPasswordField();
 	        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 32));
-	        passwordField.setBounds(230, 191, 351, 29);
+	        passwordField.setBounds(198, 191, 206, 29);
 	        contentPane.add(passwordField);
 
 	        btnNewButton = new JButton("Register");
 	        btnNewButton.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	            	
-	               
-	                String userName = username.getText();
-	                String password = passwordField.getText();
+	            		            	
+	                String userName  = username.getText();
+	                String password  = passwordField.getText();
 	                String password1 = passwordField_1.getText();
+	                String FullName  = fullname.getText();
+	                String Email     = email.getText();
 	                StringBuilder ab=new StringBuilder();
 					
 
@@ -106,34 +111,37 @@ public class giaodiendangky extends JFrame {
 					if (password.equals(password1)==false) {
 						ab.append("Tài khoảng mật khẩu trùng nhau");
 					}
+					if (FullName.equals("")) {
+						ab.append("Bạn chưa nhập họ và tên \n");
+					}
+					if (Email.equals("")) {
+						ab.append("bạn chưa nhập email \n");
+					}
 					 if (ab.length()>0) {
 							JOptionPane.showMessageDialog(null, ab.toString(), "Lỗi", JOptionPane.ERROR_MESSAGE);
 							return;}
 					else {
-	                try {
-	                	
+	                try {	                	
 	                    Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thongtin", "root", "huynhquang");
-
-	                    String query = "INSERT INTO `thongtin`.`thongtinkhachhang` (`UserName`, `PassWord`) VALUES ('"+userName+"', '"+password+"');";
-
+	                    String query = "INSERT INTO `thongtin`.`thongtinkhachhang` (`UserName`, `PassWord`,`FullName`,`Email`) VALUES ('"+userName+"', '"+password+"','"+FullName+"','"+Email+"');";
 	                    Statement sta = connection.createStatement();
-	                    int x = sta.executeUpdate(query);
-	                    if (x == 0) {
-	                        JOptionPane.showMessageDialog(btnNewButton, "This is alredy exist");
-	                    } else {
-	                        JOptionPane.showMessageDialog(btnNewButton,
-	                            "Welcome, " + "Your account is sucessfully created");
+	                    int x = sta.executeUpdate(query);	                  
+	                    if (x > 0) {
+	                    	JOptionPane.showMessageDialog(btnNewButton,
+		                    		"Welcome, " + "Your account is sucessfully created");	                    	
 	                    }
 	                    connection.close();
-	                } catch (Exception exception) {
-	                    exception.printStackTrace();
+	                    
+	                    
+	                } catch (SQLException exception) {
+	                    JOptionPane.showMessageDialog(btnNewButton, "Tài khoảng đã tồn tại");
 	                }
 	               
 						
 	                }
 	            }});
 	        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-	        btnNewButton.setBounds(426, 368, 175, 41);
+	        btnNewButton.setBounds(558, 368, 175, 41);
 	        contentPane.add(btnNewButton);
 	        
 	        JLabel lblNewLabel = new JLabel("Re-enter PassWord. ");
@@ -143,7 +151,7 @@ public class giaodiendangky extends JFrame {
 	        
 	        passwordField_1 = new JPasswordField();
 	        passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-	        passwordField_1.setBounds(230, 282, 351, 29);
+	        passwordField_1.setBounds(198, 278, 206, 29);
 	        contentPane.add(passwordField_1);
 	        
 	        JButton btnNewButton_1 = new JButton("Login");
@@ -154,7 +162,29 @@ public class giaodiendangky extends JFrame {
 	        	}
 	        });
 	        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-	        btnNewButton_1.setBounds(115, 368, 120, 41);
+	        btnNewButton_1.setBounds(173, 368, 120, 41);
 	        contentPane.add(btnNewButton_1);
+	        
+	        JLabel lblFullname = new JLabel("FullName");
+	        lblFullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblFullname.setBounds(462, 110, 108, 29);
+	        contentPane.add(lblFullname);
+	        
+	        JLabel lblEmail = new JLabel("Email");
+	        lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblEmail.setBounds(462, 193, 83, 29);
+	        contentPane.add(lblEmail);
+	        
+	        fullname = new JTextField();
+	        fullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        fullname.setColumns(10);
+	        fullname.setBounds(620, 110, 206, 29);
+	        contentPane.add(fullname);
+	        
+	        email = new JTextField();
+	        email.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        email.setColumns(10);
+	        email.setBounds(620, 193, 206, 29);
+	        contentPane.add(email);
 	}
 }

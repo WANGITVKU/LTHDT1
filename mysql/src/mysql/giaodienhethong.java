@@ -11,6 +11,10 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.event.*;
@@ -30,9 +34,8 @@ import mysql.giaodiendangnhap;
 public class giaodienhethong extends JFrame {
 
 	private JPanel contentPane;
-	public giaodiendangnhap dn;
-	
-
+	private static String dataTXT ="";
+	private static JSpinner sp_stv,sp_std,sp_pepsi,sp_coca,sp_lavie,sp_sprite; 
 	/**
 	 * Launch the application.
 	 */
@@ -40,7 +43,7 @@ public class giaodienhethong extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					giaodienhethong frame = new giaodienhethong();
+					giaodienhethong frame = new giaodienhethong(dataTXT);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,9 +55,12 @@ public class giaodienhethong extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-
-	public giaodienhethong() {
-		bientoancuc tt =new bientoancuc();
+	
+		
+	
+	public giaodienhethong(String data) {
+		dataTXT =data;
+//		bientoancuc tt =new bientoancuc();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 943, 591);
@@ -96,37 +102,87 @@ public class giaodienhethong extends JFrame {
 		lblNewLabel_5.setBounds(646, 397, 103, 28);
 		contentPane.add(lblNewLabel_5);
 		
-		JSpinner spinner_1 = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner_1.setBounds(172, 270, 56, 31);
-		contentPane.add(spinner_1);
+		JSpinner sp_std = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+		sp_std.setBounds(172, 270, 56, 31);
+		contentPane.add(sp_std);
 		
-		JSpinner spinner_2 = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner_2.setBackground(new Color(0, 0, 0));
-		spinner_2.setBounds(172, 435, 56, 31);
-		contentPane.add(spinner_2);
+		JSpinner sp_coca = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+		sp_coca.setBackground(new Color(0, 0, 0));
+		sp_coca.setBounds(172, 435, 56, 31);
+		contentPane.add(sp_coca);
 		
-		JSpinner spinner_3 = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner_3.setBounds(646, 121, 56, 31);
-		contentPane.add(spinner_3);
+		JSpinner sp_pepsi = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+		sp_pepsi.setBounds(646, 121, 56, 31);
+		contentPane.add(sp_pepsi);
 		
-		JSpinner spinner_4 = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner_4.setBounds(646, 270, 56, 31);
-		contentPane.add(spinner_4);
+		JSpinner sp_sprite = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+		sp_sprite.setBounds(646, 270, 56, 31);
+		contentPane.add(sp_sprite);
 		
-		JSpinner spinner_5 = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner_5.setBounds(646, 435, 56, 31);
-		contentPane.add(spinner_5);
+		JSpinner sp_lavie = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+		sp_lavie.setBounds(646, 435, 56, 31);
+		contentPane.add(sp_lavie);
 		
-		JSpinner spinner = new JSpinner(new SpinnerNumberModel(0,0,100,1));
-		spinner.setBounds(172, 122, 56, 31);
-		contentPane.add(spinner);
+		JSpinner sp_stv = new JSpinner(new SpinnerNumberModel(0,0,100,1));
 		
+		sp_stv.setBounds(172, 122, 56, 31);
+		contentPane.add(sp_stv);
+
 		JButton btnNewButton = new JButton("Mua");
 		btnNewButton.setForeground(UIManager.getColor("Button.focus"));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null,"t "+spinner.getValue()+"  sahsahad sgi ashjs akhjas ds adas asd s" );
-			}
+				int True=1;
+				
+				if(((int)sp_stv.getValue()>0)||((int)sp_std.getValue()>0)||((int)sp_coca.getValue()>0)||((int)sp_pepsi.getValue()>0)||((int)sp_sprite.getValue()>0)||((int)sp_lavie.getValue()>0)) {
+				String a= "";
+				String b="";
+				String c="";
+				String d="";
+				String f="";
+				String g="";
+				String h = "";
+					if((int)sp_stv.getValue()>0) {
+						int tong1=(int)sp_stv.getValue()*7000;
+						a ="Sting Vàng            "+ sp_stv.getValue()+"     x       "+"7000          "+"=  "+tong1+"đ\n";
+					}
+					if((int)sp_std.getValue()>0) {
+						int tong2=(int)sp_std.getValue()*7000;
+						b ="Sting Đỏ               "+ sp_std.getValue()+"      x       "+"7000          "+"=  "+tong2+"đ\n";
+					}
+
+					if((int)sp_coca.getValue()>0) {
+						int tong3=(int)sp_coca.getValue()*10000;
+						c ="CocaCola             "+ sp_coca.getValue()+"      x       "+"10000        "+"=  "+tong3+"đ\n";
+					}
+
+					if((int)sp_pepsi.getValue()>0) {
+						int tong4=(int)sp_pepsi.getValue()*10000;
+						d ="Pepsi                    "+ sp_pepsi.getValue()+"      x       "+"10000        "+"=  "+tong4+"đ\n";
+					}
+
+					if((int)sp_lavie.getValue()>0) {
+						int tong5=(int)sp_lavie.getValue()*5000;
+						f ="Lavie                     "+ sp_lavie.getValue()+"      x       "+"5000          "+"=  "+tong5+"đ\n";
+					}
+
+					if((int)sp_sprite.getValue()>0) {
+						int tong6=(int)sp_sprite.getValue()*7000;
+						g ="Sprite                    "+ sp_sprite.getValue()+"      x       "+"7000          "+"=  "+tong6+"đ\n";
+					}
+					
+						
+						h ="Tông Hóa Đơn                                          :"+((int)sp_stv.getValue()*7000+(int)sp_std.getValue()*7000+(int)sp_coca.getValue()*10000+(int)sp_pepsi.getValue()*10000+(int)sp_lavie.getValue()*5000+(int)sp_sprite.getValue()*7000)+"đ"  ;
+					
+					
+
+					
+				new giaodienthanhtoan(a,b,c,d,f,g,h).setVisible(true);
+				
+				}	
+				else
+					JOptionPane.showMessageDialog(null,dataTXT+"\n"+"Bạn chưa chọn nước");
+				}
 		});
 		btnNewButton.setBackground(UIManager.getColor("FormattedTextField.background"));
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -170,13 +226,26 @@ public class giaodienhethong extends JFrame {
 		
 		JLabel lblNewLabel_12 = new JLabel("");
 		lblNewLabel_12.setIcon(new ImageIcon("C:/Users/ASUS/eclipse-workspace/mysql/src/mysql/avatar1.png"));
-		lblNewLabel_12.setBounds(716, 10, 46, 57);
+		lblNewLabel_12.setBounds(686, 10, 46, 57);
 		contentPane.add(lblNewLabel_12);
-		
-		JLabel lblNewLabel_13 = new JLabel();
-		lblNewLabel_13.setFont(new Font("Times New Roman", Font.ITALIC, 15));
-		lblNewLabel_13.setBounds(784, 21, 147, 46);
-		contentPane.add(lblNewLabel_13);
+		//thêm họ và tên vào hệ thống
+	    try {	                	
+	    	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/thongtin", "root", "huynhquang");
+	    	String query = "SELECT FullName FROM thongtin.thongtinkhachhang WHERE UserName = '"+dataTXT+"';";
+	    	Statement statement = connection.createStatement();
+	    	ResultSet resultSet = statement.executeQuery(query);
+	    	String data1 = "";
+	    	while (resultSet.next()) {
+	    		data1 += resultSet.getString(1);
+	    	}
+	    	JLabel FullName = new JLabel("");
+	    	FullName.setBounds(752, 24, 154, 37);
+	    	contentPane.add(FullName);
+	    	FullName.setText(data1);
+		}
+	    catch (Exception e) {	   
+			// TODO: handle exception
+		}
 		}
     } 
 
