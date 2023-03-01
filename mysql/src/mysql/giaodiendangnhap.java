@@ -70,6 +70,16 @@ public class giaodiendangnhap  extends JFrame{
 		pass.setBounds(285, 241, 245, 19);
 		form1.add(pass);
 		
+		JLabel lblNewLabel_1 = new JLabel("UserName");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_1.setBounds(61, 150, 139, 42);
+		form1.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("PassWord");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblNewLabel_2.setBounds(67, 228, 93, 36);
+		form1.add(lblNewLabel_2);
+		// quay lai dang nhap
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton.addActionListener(new ActionListener() {
@@ -93,46 +103,49 @@ public class giaodiendangnhap  extends JFrame{
 						con.close();
 				} catch (Exception e) {
 					System.out.println(e);
-				}
-				
+				}				
 			}
 		});
 		btnNewButton.setBounds(416, 290, 114, 33);
-		form1.add(btnNewButton);
-		
-		JLabel lblNewLabel_1 = new JLabel("UserName");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_1.setBounds(61, 150, 139, 42);
-		form1.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("PassWord");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_2.setBounds(67, 228, 93, 36);
-		form1.add(lblNewLabel_2);
-		
+		form1.add(btnNewButton);	
+		// mở trang đăng ký 
 		JButton btnNewButton_1 = new JButton("Register");
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+			{
 				new giaodiendangky().setVisible(true);
 				setVisible(false);
-				
-			}
-		 
-			
+			}		
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		btnNewButton_1.setBounds(285, 292, 102, 29);
 		form1.add(btnNewButton_1);
-		
+       
+		//dang nhap vao he thong qua ly	
 		JButton btnNewButton_2 = new JButton("system manager login");
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+		btnNewButton_2.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{	
+					try {
+						Class.forName("com.mysql.jdbc.Driver");
+						Connection con=DriverManager.getConnection("jdbc:mySQL://localhost:3306/thongtin","root","huynhquang");
+						Statement stmt=con.createStatement();
+						String sql="Select*from admin where UserName='"+user.getText()+"'and PassWord='"+pass.getText().toString()+"'";
+						ResultSet rs=stmt.executeQuery(sql);										
+						if(rs.next()) {
+							new manager_system().setVisible(true);
+							setVisible(false);
+							JOptionPane.showMessageDialog(null, "Đăng thành công");}
+						else 
+							JOptionPane.showMessageDialog(null, "Đăng nhặp thất bại "+"\nTài khoảng hoặc mật khẩu không đúng");
+							con.close();
+						}	 
+					catch (Exception ex) {}					
 			}
-		});
+		 });
 		btnNewButton_2.setBounds(449, 10, 182, 33);
-		form1.add(btnNewButton_2);
-		
+		form1.add(btnNewButton_2);		
 		}
 	}
 	

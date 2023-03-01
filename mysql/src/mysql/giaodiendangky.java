@@ -60,18 +60,22 @@ public class giaodiendangky extends JFrame {
 	        contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 	        setContentPane(contentPane);
 	        contentPane.setLayout(null);
-
+	        
+	        JLabel lblFullname = new JLabel("FullName");
+	        lblFullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblFullname.setBounds(462, 110, 108, 29);
+	        contentPane.add(lblFullname);
+	        
+	        JLabel lblEmail = new JLabel("Email");
+	        lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblEmail.setBounds(462, 193, 83, 29);
+	        contentPane.add(lblEmail);
+	        
 	        JLabel lblNewUserRegister = new JLabel("Register");
 	        lblNewUserRegister.setFont(new Font("Times New Roman", Font.PLAIN, 42));
-	        lblNewUserRegister.setBounds(230, 10, 193, 50);
+	        lblNewUserRegister.setBounds(318, 10, 193, 50);
 	        contentPane.add(lblNewUserRegister);
-
-	        username = new JTextField();
-	        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        username.setBounds(198, 110, 206, 29);
-	        contentPane.add(username);
-	        username.setColumns(10);
-
+	        
 	        JLabel lblUsername = new JLabel("UserName");
 	        lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 20));
 	        lblUsername.setBounds(48, 110, 155, 29);
@@ -81,11 +85,39 @@ public class giaodiendangky extends JFrame {
 	        lblPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
 	        lblPassword.setBounds(48, 198, 155, 24);
 	        contentPane.add(lblPassword);
+	        
+	        JLabel lblNewLabel = new JLabel("Re-enter PassWord. ");
+	        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        lblNewLabel.setBounds(10, 283, 193, 29);
+	        contentPane.add(lblNewLabel);
+	        
+	        passwordField_1 = new JPasswordField();
+	        passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
+	        passwordField_1.setBounds(198, 278, 206, 29);
+	        contentPane.add(passwordField_1);
+
+	        username = new JTextField();
+	        username.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        username.setBounds(198, 110, 206, 29);
+	        contentPane.add(username);
+	        username.setColumns(10);
 
 	        passwordField = new JPasswordField();
 	        passwordField.setFont(new Font("Tahoma", Font.PLAIN, 32));
 	        passwordField.setBounds(198, 191, 206, 29);
 	        contentPane.add(passwordField);
+	        
+	        fullname = new JTextField();
+	        fullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        fullname.setColumns(10);
+	        fullname.setBounds(620, 110, 206, 29);
+	        contentPane.add(fullname);
+	        
+	        email = new JTextField();
+	        email.setFont(new Font("Tahoma", Font.PLAIN, 20));
+	        email.setColumns(10);
+	        email.setBounds(620, 193, 206, 29);
+	        contentPane.add(email);
 
 	        btnNewButton = new JButton("Register");
 	        btnNewButton.addActionListener(new ActionListener() {
@@ -128,7 +160,7 @@ public class giaodiendangky extends JFrame {
 	                    int x = sta.executeUpdate(query);	                  
 	                    if (x > 0) {
 	                    	JOptionPane.showMessageDialog(btnNewButton,
-		                    		"Welcome, " + "Your account is sucessfully created");	                    	
+		                    		"Chào mừng, " + "Bạn đã tạo tài khoản thành công");	                    	
 	                    }
 	                    connection.close();
 	                    
@@ -141,18 +173,8 @@ public class giaodiendangky extends JFrame {
 	                }
 	            }});
 	        btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 22));
-	        btnNewButton.setBounds(558, 368, 175, 41);
+	        btnNewButton.setBounds(629, 368, 175, 41);
 	        contentPane.add(btnNewButton);
-	        
-	        JLabel lblNewLabel = new JLabel("Re-enter PassWord. ");
-	        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        lblNewLabel.setBounds(10, 283, 193, 29);
-	        contentPane.add(lblNewLabel);
-	        
-	        passwordField_1 = new JPasswordField();
-	        passwordField_1.setFont(new Font("Tahoma", Font.PLAIN, 32));
-	        passwordField_1.setBounds(198, 278, 206, 29);
-	        contentPane.add(passwordField_1);
 	        
 	        JButton btnNewButton_1 = new JButton("Login");
 	        btnNewButton_1.addActionListener(new ActionListener() {
@@ -162,29 +184,7 @@ public class giaodiendangky extends JFrame {
 	        	}
 	        });
 	        btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 22));
-	        btnNewButton_1.setBounds(173, 368, 120, 41);
+	        btnNewButton_1.setBounds(225, 368, 120, 41);
 	        contentPane.add(btnNewButton_1);
-	        
-	        JLabel lblFullname = new JLabel("FullName");
-	        lblFullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        lblFullname.setBounds(462, 110, 108, 29);
-	        contentPane.add(lblFullname);
-	        
-	        JLabel lblEmail = new JLabel("Email");
-	        lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        lblEmail.setBounds(462, 193, 83, 29);
-	        contentPane.add(lblEmail);
-	        
-	        fullname = new JTextField();
-	        fullname.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        fullname.setColumns(10);
-	        fullname.setBounds(620, 110, 206, 29);
-	        contentPane.add(fullname);
-	        
-	        email = new JTextField();
-	        email.setFont(new Font("Tahoma", Font.PLAIN, 20));
-	        email.setColumns(10);
-	        email.setBounds(620, 193, 206, 29);
-	        contentPane.add(email);
 	}
 }
